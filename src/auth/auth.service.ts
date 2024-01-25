@@ -46,6 +46,7 @@ export class AuthService {
       where: { email },
       select: { id: true, email: true, password: true },
     });
+    if(!user) throw new NotFoundException(`Invalid User`);
     const { password: dbPassword } = user;
     if (!bcrypt.compareSync(password, dbPassword))
       throw new UnauthorizedException();
